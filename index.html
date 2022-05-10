@@ -466,7 +466,7 @@
                 return (
                     <div className={`dropDown drop${dropFrom} ${isDroped ? 'droped' : ''}`}>
                         <div className={`dropCentent ${dropFrom === 'right' ? 'rightContent' : ''}`}>
-                            <UserBlock />
+                            <UserBlock  showMorePage={this.props.showMorePage}/>
                             <MenuList />
                             <MenuList list = {this.list1}/>
                             <MenuList list = {this.list2}/>
@@ -513,7 +513,9 @@
                 let { avatar, nickName, account, followers, follow } = this.props;
                 return (
                     <div className='UserBlock'>
-                        <div className='avatar'>
+                        <div className='avatar' onClick={()=>{
+                            this.props.showMorePage();
+                        }}>
                             <img src={avatar} />
                         </div>
                         <p className='nickName'>
@@ -579,20 +581,54 @@
             }
         }
     </script>
-    <script type="text/babel">//
+    <script type="text/babel">//多级页面
+        class MorePage extends React.Component{
+            static defaultProps = {
+                isShow:false,
+            }
+            show = ()=>{
+                this.props.showMorePage();
+            }
+            hide = ()=>{
+                this.props.hideMorePage();
+            }
+            render(){
+                return (
+                    <div className='MorePage' style = {{
+                        display:this.props.isShow?'':'none',
+                    }}>
+                        <p className='pageback'>
+                            <i className="iconfont icon-xitongfanhui back-icon" onClick={()=>{
+                                this.hide();
+                            }}></i>    
+                        </p>
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//主页
 
     </script>
+
     <script type="text/babel">//App
         class App extends React.Component {
-            state = { pageIndex: 0, isDroped: false, bIsDroped: true }
+            state = { pageIndex: 0, isDroped: false, bIsDroped: true,showMorePage:false}
             getSelectIndex = (index) => {
                 this.setState({ pageIndex: index });
+                document.getElementsByClassName('center')[0].scrollTo(0,0);
             }
             setDrop = (isDroped) => {
                 this.setState({ isDroped });
             }
             setBdrop = (isDroped) => {
                 this.setState({ bIsDroped: isDroped });
+            }
+            showMorePage = ()=>{
+                this.setState({showMorePage : true});
+            }
+            hideMorePage = ()=>{
+                this.setState({showMorePage : false});
             }
             CenterComponent = () => {
                 let ReComponent;
@@ -623,8 +659,9 @@
                             <Center />
                         </div>
                         <BottomNavs getIndex={this.getSelectIndex} />
-                        <Dropdown isDroped={this.state.isDroped} setDrop={this.setDrop} />
+                        <Dropdown showMorePage={this.showMorePage} isDroped={this.state.isDroped} setDrop={this.setDrop} />
                         <DropdownBottom isShow={this.state.bIsDroped} setBdrop={this.setBdrop} />
+                        <MorePage isShow = {this.state.showMorePage} showMorePage={this.showMorePage} hideMorePage = {this.hideMorePage}/>
                     </div>
                 )
             }

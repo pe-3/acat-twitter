@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1652175515831') format('truetype');
+  src: url('iconfont.ttf?t=1652197592186') format('truetype');
 }
 
 .iconfont {
@@ -9,6 +9,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xitongfanhui:before {
+  content: "\e6b6";
 }
 
 .icon-dialog:before {
