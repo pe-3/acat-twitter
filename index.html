@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/app.css">
+    <link rel="stylesheet" href="./css/icon.css">
+</head>
+
+<body>
+    <div id="root"></div>
+    <div id="mobile"></div>
+    <script type="text/babel">//底部导航栏
+        class BottomNavs extends React.Component {
+            state = { selectIndex: 0 }
+            items = [
+                {
+                    icon: "icon-home",
+                },
+                {
+                    icon: "icon-search",
+                },
+                {
+                    icon: "icon-bell-l",
+                },
+                {
+                    icon: "icon-mail",
+                },
+
+            ]
+            render() {
+                return (
+                    <div className="navs-wrapper">
+                        {
+                            this.items.map((val, index) => {
+                                return <i
+                                    className={`iconfont ${val.icon} ${this.state.selectIndex === index ? 'selected-nav' : ''}`}
+                                    key={index}
+                                    onClick={() => {
+                                        if (this.state.selectIndex === index) {
+                                            return;
+                                        }
+                                        this.setState({ selectIndex: index });
+                                        this.props.getIndex(index);
+                                    }}
+                                >
+                                </i>
+                            })
+                        }
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//对话列表
+        class Dialog extends React.Component {
+            static defaultProps = {
+                avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202103%2F30%2F20210330141929_161cb.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1652842290&t=527c7920901fdf8db3af9cc4edc5b273',
+                nickname: '好友昵称',
+                talkTime: '2020-02-07',
+                lastMsg: '哦哦哦 哦哦哦 我知道了',
+            }
+            render() {
+                let { avatar, nickname, talkTime, lastMsg } = this.props;
+                return (
+                    <div className='dialog'>
+                        <div className="avatar">
+                            <img src={avatar} alt={`${nickname} 的头像`} />
+                        </div>
+                        <div className="text-wrapper">
+                            <p>
+                                <span className="nickname">{nickname}</span>
+                                <span className="talkTime">{talkTime}</span>
+                            </p>
+                            <p>
+                                <span className="lastMsg">{lastMsg}</span>
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
+        }
+        class DialogList extends React.Component {
+            list = [
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+            ]
+            render() {
+                return (
+                    <div className='DialogList'>
+                        {
+                            this.list.map((val, index) => {
+                                return <Dialog {...val} key={index} />
+                            })
+                        }
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//顶部
+        class TopBar extends React.Component {
+            static defaultProps = {
+                avatar: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202103%2F30%2F20210330141929_161cb.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1652842290&t=527c7920901fdf8db3af9cc4edc5b273',
+                index: 0,
+                logo: './image/logo1.jpeg',
+            }
+            routerC = () => {
+                let sIndex = this.props.sIndex;
+                if (sIndex === 0) {
+                    return (
+                        <img src={this.props.logo} className='logo' />
+                    )
+                } else if (sIndex === 3) {
+                    return (
+                        <div className="btn-tosearch">
+                            搜索私信
+                        </div>
+                    )
+                } else if (sIndex === 2) {
+                    return (
+                        <div className='title'>
+                            通知
+                        </div>
+                    )
+                } else if (sIndex === 1) {
+                    return (
+                        <div className="btn-tosearch">
+                            搜索ACAT
+                        </div>
+                    )
+                }
+            }
+            render() {
+                let { avatar, index } = this.props;
+                let ReC = this.routerC;
+                return (
+                    <div className='topBar'>
+                        <div className="avatar myAvatar">
+                            <img onClick={() => {
+                                this.props.setDrop(true);
+                            }}
+                                src={avatar}
+                                alt="我的头像"
+                            />
+                        </div>
+                        <div className="center-content">
+                            <ReC />
+                        </div>
+                        <div className="right-btn">
+                            <i onClick={() => {
+                                this.props.setBdrop(false);
+                            }} className={`iconfont ${this.props.sIndex === 0 ? 'icon-stars' : 'icon-setting'}`}></i>
+                        </div>
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//推文主体部分
+        class Tweets extends React.Component {
+            static defaultProps = {
+                avatar: 'https://img0.baidu.com/it/u=1942253063,3807598283&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+                twitterName: '推主昵称',
+                twittTime: '11小时',
+                twittContent: '这是一条推文这是一条推文这是一条推文,这是一条推文这是一条推文这是一条推文,这是一条推文这是一条推文这是一条推文',//采用markdown形式
+                nums: {
+                    comment: 12,
+                    like: 10,
+                    reTweet: 10,
+                }
+            }
+            render() {
+                let { avatar, twitterName, twittTime, twittContent } = this.props;
+                let { comment, like, reTweet } = this.props.nums;
+                return (
+                    <div className="tweets">
+                        <div className="avatar">
+                            <img src={avatar} alt={`${twitterName}的头像`} />
+                        </div>
+                        <div className="right-part">
+                            <p className="info-line">
+                                <span>
+                                    <span className="tName">{twitterName}</span>
+                                    <span className='tTime'>{twittTime}</span>
+                                </span>
+                                <i className="iconfont icon-more"></i>
+                            </p>
+                            <div className='tContent'>
+                                {twittContent}
+                            </div>
+                            <p className='active-btn'>
+                                <span>
+                                    <i className="iconfont icon-Comment"></i>
+                                    {comment}
+                                </span>
+                                <span>
+                                    <i className="iconfont icon-share_link"></i>
+                                    {reTweet}
+                                </span>
+                                <span>
+                                    <i className="iconfont icon-like"></i>
+                                    {like}
+                                </span>
+                                <span>
+                                    <i className="iconfont icon-share"></i>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
+        }
+        class TweetsList extends React.Component {
+            list = [
+                {
+                    avatar: "https://img1.baidu.com/it/u=2320211849,2262495367&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+                },
+                {
+                    avatar: "https://img2.baidu.com/it/u=1742064249,2154824212&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+                },
+                {
+                    avatar: "https://img2.baidu.com/it/u=710564821,138499167&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400",
+                },
+                {
+                    avatar: "https://img0.baidu.com/it/u=117204875,2295279492&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+                },
+                {
+                    avatar: "https://img1.baidu.com/it/u=3440114649,2309948979&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+                },
+                {
+                    avatar: "https://img2.baidu.com/it/u=2923209911,3622464078&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400",
+                },
+            ]
+            render() {
+                return (
+                    <div className="tweetsList">
+                        {
+                            this.list.map((val, index) => {
+                                return <Tweets {...val} key={index} />
+                            })
+                        }
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//消息和回复
+        class Msg extends React.Component {
+            static defaultProps = {
+                avatar: "https://img1.baidu.com/it/u=2320211849,2262495367&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+                nickName: "用户昵称",
+                time: "2天",
+                resType: "回复",//喜欢和回复
+                targetType: "推文",
+                nums: {
+                    comment: 12,
+                    relink: 42,
+                    like: 200,
+                },
+                twittContent: "这是一条回复 这是一条回复 这是一条回复 这是一条回复 这是一条回复 这是一条回复 这是一条回复 这是一条回复 这是一条回复 这是一条回复 这是一条回复",
+            }
+            render() {
+                let { avatar, nickName, time, resType, twittContent, targetType } = this.props;
+                let { comment, relink, like } = this.props.nums;
+                return (
+                    <div className="tweets">
+                        <div className="avatar">
+                            <img src={avatar} alt={`${nickName}的头像`} />
+                        </div>
+                        <div className="right-part">
+                            <p className="info-line">
+                                <span>
+                                    <span className="tName">{nickName}</span>
+                                    <span className='tTime'>{time}</span>
+                                </span>
+                                <i className="iconfont icon-more"></i>
+                            </p>
+                            <p className='resType'>
+                                {resType === '推文' ?
+                                    <span>发布了新推文</span> :
+                                    <span><em>{resType}</em>了你的{targetType}</span>
+                                }
+                            </p>
+                            <div className='tContent'>
+                                {twittContent}
+                            </div>
+                            {resType === '回复' || resType === '推文' ?
+                                <p className='active-btn'>
+                                    <span>
+                                        <i className="iconfont icon-Comment"></i>
+                                        {comment}
+                                    </span>
+                                    <span>
+                                        <i className="iconfont icon-share_link"></i>
+                                        {relink}
+                                    </span>
+                                    <span>
+                                        <i className="iconfont icon-like"></i>
+                                        {like}
+                                    </span>
+                                    <span>
+                                        <i className="iconfont icon-share"></i>
+                                    </span>
+                                </p> : ''}
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        class MsgList extends React.Component {
+            list = [
+                {
+                    resType: "回复",
+                    targetType: "回复",
+                },
+                {
+                    resType: "喜欢",
+                    targetType: "推文",
+                },
+                {
+                    resType: "推文"
+                },
+                {},
+            ]
+            render() {
+                return (
+                    <div id='MsgList'>
+                        {this.list.map((val, index) => {
+                            return <Msg {...val} key={index} />
+                        })}
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//搜索推荐页
+        class Search extends React.Component {
+            static defaultProps = {
+                pic: "./image/picwall.webp",
+            }
+            trendList = [
+                {},
+                {},
+                {},
+                {},
+            ]
+            recomList = [
+                {},
+                {},
+                {},
+                {},
+            ]
+            render() {
+                let { pic } = this.props
+                return (
+                    <div id='search'>
+                        <div className="picWall">
+                            <img src={pic} />
+                            <div className="picText">
+                                <p className='pt1'>
+                                    COVID-19·LIVE
+                                </p>
+                                <p className='pt2'>
+                                    Updates on the Covid-19 situation in Hong Kong
+                                </p>
+                            </div>
+                        </div>
+                        <div className="trendList">
+                            <p className="title trendT">你的趋势</p>
+                            {
+                                this.trendList.map((val, index) => {
+                                    return <Trend key={index} {...val} />
+                                })
+                            }
+                            <p className='showMore'>显示更多</p>
+                        </div>
+                        <div className="recom">
+                            <p className='title recomT'>推荐关注</p>
+                            <div className='recoms'>
+                                {
+                                    this.recomList.map((val, index) => {
+                                        return <Recom key={index} {...val} />
+                                    })
+                                }
+                            </div>
+                            <p className='showMore'>显示更多</p>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        class Trend extends React.Component {
+            static defaultProps = {
+                trendTarget: "中国香港特别行政区",
+                trendCount: "Hong Kong",
+                tweetsNum: "1.99万"
+            }
+            render() {
+                let { trendTarget, trendCount, tweetsNum } = this.props;
+                return (
+                    <div className="trend">
+                        <p className="trendName">{trendTarget} 的趋势 <i className="iconfont icon-more"></i></p>
+                        <p className="trendAccount">{trendCount}</p>
+                        <p className="tweetsNum">{tweetsNum} 推文</p>
+                    </div>
+                )
+            }
+        }
+
+        class Recom extends React.Component {
+            static defaultProps = {
+                avatar: "https://img2.baidu.com/it/u=710564821,138499167&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400",
+                nickName: "种花家兔子一号",
+                account: "@peter21312",
+            }
+            render() {
+                let { avatar, nickName, account } = this.props;
+                return (
+                    <div className="infoCard">
+                        <div className="avatar info-av">
+                            <img src={avatar} />
+                        </div>
+                        <div className="infoName strong">{nickName}</div>
+                        <p className='account'>{account}</p>
+                        <div className='btnFollow'>关注</div>
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//抽屉
+        class Dropdown extends React.Component {
+            static defaultProps = {
+                dropFrom: "left",
+                isDroped: false,
+            }
+            list1 = [
+                {
+                    content:"设置和隐私",
+                },
+                {
+                    content:"帮助中心",
+                }
+            ]
+            list2 = [
+                {
+                    content:"登出",
+                }
+            ]
+            render() {
+                let { dropFrom, isDroped } = this.props
+                return (
+                    <div className={`dropDown drop${dropFrom} ${isDroped ? 'droped' : ''}`}>
+                        <div className={`dropCentent ${dropFrom === 'right' ? 'rightContent' : ''}`}>
+                            <UserBlock />
+                            <MenuList />
+                            <MenuList list = {this.list1}/>
+                            <MenuList list = {this.list2}/>
+                        </div>
+                        <div className={`back back${dropFrom}`} onClick={() => {
+                            this.props.setDrop(false);
+                        }}></div>
+                    </div>
+                )
+            }
+        }
+
+        class DropdownBottom extends React.Component {
+            static defaultProps = {
+                isShow: false,
+            }
+            render() {
+                if (this.props.isShow) {
+                    return ''
+                } else {
+                    return (
+                        <div className='bottomDrop'>
+                            <div className="bdBack" onClick={() => {
+                                this.props.setBdrop(true);
+                            }}></div>
+                            <div className="bdContent"></div>
+                        </div>
+                    )
+                }
+
+            }
+        }
+    </script>
+    <script type="text/babel">//用户块
+        class UserBlock extends React.Component {
+            static defaultProps = {
+                avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202103%2F30%2F20210330141929_161cb.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1652842290&t=527c7920901fdf8db3af9cc4edc5b273",
+                nickName: "用户昵称",
+                account: "@peter123123",
+                followers: 20,
+                follow: 10,
+            }
+            render() {
+                let { avatar, nickName, account, followers, follow } = this.props;
+                return (
+                    <div className='UserBlock'>
+                        <div className='avatar'>
+                            <img src={avatar} />
+                        </div>
+                        <p className='nickName'>
+                            <span>{nickName}</span>
+                        </p>
+                        <p className='account'>{account}</p>
+                        <p className='fo'>
+                            <span className='follow'> <span className='strong'>{follow}</span> 正在关注</span>
+                            <span className="follower"> <span className='strong'>{followers}</span> 关注者</span>
+                        </p>
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//菜单列表
+        class MenuList extends React.Component {
+            static defaultProps = {
+                list: [
+                    {
+                        icon: "icon-user",
+                        content: "个人资料",
+                    },
+                    {
+                        icon: "icon-list_list",
+                        content: "列表",
+                    },
+                    {
+                        icon: "icon-dialog",
+                        content: "话题",
+                    },
+                    {
+                        icon: "icon-xian-shuqian",
+                        content: "书签",
+                    },
+                    {
+                        icon: "icon-flashlight",
+                        content: "瞬间",
+                    },
+                    {
+                        icon: "icon-Earnings_icon",
+                        content: "盈利",
+                    },
+                ]
+            }
+            render() {
+                return (
+                    <div className='MenuList'>
+                        {
+                            this.props.list.map((val, index) => {
+                                return (
+                                    <div className='MenuItem' key={index}>
+                                        {val.icon ?
+                                             <i className={`menu-icon iconfont ${val.icon}`}></i>:''
+                                        }
+                                        <span className='menu-content'>{val.content}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                )
+            }
+        }
+    </script>
+    <script type="text/babel">//
+
+    </script>
+    <script type="text/babel">//App
+        class App extends React.Component {
+            state = { pageIndex: 0, isDroped: false, bIsDroped: true }
+            getSelectIndex = (index) => {
+                this.setState({ pageIndex: index });
+            }
+            setDrop = (isDroped) => {
+                this.setState({ isDroped });
+            }
+            setBdrop = (isDroped) => {
+                this.setState({ bIsDroped: isDroped });
+            }
+            CenterComponent = () => {
+                let ReComponent;
+                switch (this.state.pageIndex) {
+                    case 0:
+                        ReComponent = TweetsList;
+                        break;
+                    case 1:
+                        ReComponent = Search;
+                        break;
+                    case 2:
+                        ReComponent = MsgList;
+                        break;
+                    case 3:
+                        ReComponent = DialogList;
+                        break;
+                    default:
+                        break;
+                }
+                return <ReComponent />;
+            }
+            render() {
+                let Center = this.CenterComponent;
+                return (
+                    <div id='app'>
+                        <TopBar sIndex={this.state.pageIndex} setDrop={this.setDrop} setBdrop={this.setBdrop} />
+                        <div className='center'>
+                            <Center />
+                        </div>
+                        <BottomNavs getIndex={this.getSelectIndex} />
+                        <Dropdown isDroped={this.state.isDroped} setDrop={this.setDrop} />
+                        <DropdownBottom isShow={this.state.bIsDroped} setBdrop={this.setBdrop} />
+                    </div>
+                )
+            }
+        }
+        if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
+            document.getElementById('root').remove();
+            ReactDOM.render(<App />, document.getElementById('mobile'));
+        } else {
+            ReactDOM.render(<App />, document.getElementById('root'));
+        }
+       
+    </script>
+</body>
+
+</html>

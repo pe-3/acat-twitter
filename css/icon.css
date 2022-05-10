@@ -1,0 +1,39 @@
+@import url(../font/my_font/iconfont.css);
+
+.icon-home.icon-search,.icon-mail,.icon-bell{
+    font-size: 18px !important;
+    font-weight: 300;
+}
+
+.icon-search{
+    font-weight: 600;
+}
+
+.icon-mail{
+    font-size: 21px !important;
+}
+
+.icon-home{
+    font-size: 22px !important;
+}
+
+.icon-Comment{
+    font-size: 13px ;
+}
+
+.icon-share_link,
+.icon-like,.icon-share{
+    font-size: 14px ;
+}
+
+.icon-share_link{
+    font-size: 15px;
+}
+
+.icon-like{
+    font-size: 19px;
+}
+
+.icon-share{
+    font-size: 18px;
+}

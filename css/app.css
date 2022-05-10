@@ -1,0 +1,475 @@
+#root{
+    width: 340px;
+    height: 644px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid black;
+}
+
+#app{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+}
+
+.navs-wrapper{
+    height: 60px;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    place-items: center;
+    border-top: 1px solid #eee;
+}
+
+.selected-nav{
+    color: #409EFF;
+}
+
+
+
+.dialog{
+    height: 55px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    margin: 7px 0;
+    padding: 5px 10px;
+    padding-left: 5px;
+}
+
+.avatar{
+    height: 100%;
+    width: 55px;
+    box-sizing: border-box;
+    padding: 3px;
+    border-radius:50%;
+    margin-right: 10px;
+}
+
+.avatar>img{
+    border-radius: 50%;
+    width: 100%;
+}
+
+.nickname{
+    font-size: 15px;
+}
+
+.text-wrapper{
+    flex: 1;
+}
+
+.text-wrapper>p{
+    display:flex;
+    justify-content: space-between;
+    height: 30px;
+    line-height: 30px;
+}
+
+.DialogList{
+    padding:0 10px;
+}
+
+.nickname{
+    font-weight: bolder;
+}
+.lastMsg,.talkTime{
+    font-size: 13px;
+    color: #999;
+}
+
+.myAvatar,
+.right-btn
+{
+    width: 40px;
+    height: 40px;
+}
+
+.right-btn{
+    display: grid;
+    place-content: center;
+
+}
+
+.topBar{
+    height: 50px;
+    display: flex;
+    background-color: white;
+    margin: 0 10px;
+    align-items: center;
+}
+
+.center-content{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-tosearch{
+    height: 80%;
+    background-color: #eee;
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 5px 20px;
+    margin: 0 10px;
+    color: #999;
+    width: 90%;
+}
+
+.right-btn>i{
+    font-size: 21px !important;
+}
+
+.tweets{
+    display: flex;
+    padding: 10px 7px;
+    margin: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.right-part{
+    flex: 1;
+}
+
+.right-part>p{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+.right-part>p:last-child{
+    padding-right: 30px;
+    margin-top: 10px;
+    color: #999;
+    font-size: 14px;
+}
+
+.center{
+    height: calc(100% - 110px);
+    overflow: auto;
+}
+
+.center::-webkit-scrollbar{
+    width: 0;
+}
+
+.tName{
+    font-weight: bold;
+    margin-right: 10px;
+}
+.tTime,.tContent{
+    font-size: 15px;
+}
+
+.tTime,.icon-more{
+    color: #999;
+}
+
+.icon-Comment,.icon-share_link,
+.icon-like,.icon-share{
+    margin-right: 10px;
+    vertical-align:text-top;
+}
+
+.active-btn>span{
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    height: 30px;
+}
+
+.icon-stars{
+    font-size: 20px;
+    color: #666;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.resType{
+    font-size: 14px;
+    color: #999;
+}
+
+em{
+    font-style: normal;
+    color: rgb(226, 84, 84);
+}
+
+.picWall{
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.picWall>img{
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+.picText{
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    z-index: 1;
+    bottom: 10px;
+    padding: 0 10px;
+}
+
+.pt1{
+    font-weight: 300;
+}
+
+.pt2{
+    font-weight: bolder;
+}
+
+.trendT,.recomT{
+    font-size: 17px;
+    padding-left: 10px;
+}
+
+.trendName,.tweetsNum{
+    font-size:13px;
+    color: #999;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 14px;
+}
+
+.trendAccount{
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.trend{
+    padding-left: 15px;
+    margin-top: 15px;
+}
+.trendList,.recom{
+    padding-top: 10px;
+    margin-top: 5px;
+    border-top: .7px solid #ccc;
+    padding-bottom: 10px;
+    border-bottom: .7px solid #ccc;
+}
+
+.showMore{
+    color:#409EFF;
+    padding-left: 15px;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+.recom{
+    border: none;
+}
+
+.strong{
+    font-weight: bolder;
+    color: #000;
+}
+
+.recoms{
+    white-space: nowrap;
+    overflow: auto;
+    width: 100%;
+    height: 208px;
+    margin-top: 10px;
+}
+
+.infoCard{
+    border: .1px solid #aaa;
+    border-radius: 10px;
+    width: 100px;
+    display: inline-block;
+    text-align: center;
+    margin: 0 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.recoms::-webkit-scrollbar{
+    width: 0;
+}
+
+.info-av{
+    margin: 0 auto;
+}
+.account{
+    font-size: 14px;
+    color: #999;
+}
+
+.infoName{
+    width: 100%;
+    box-sizing: border-box;
+    padding:0 5px;
+    white-space: pre-wrap;
+    font-size: 15px;
+}
+
+.btnFollow{
+    width: 5em;
+    height: 1.6em;
+    line-height: 1.6em;
+    color: white;
+    background-color: #000;
+    border-radius: .8em;
+    margin: 0 auto;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.dropDown{
+    position: absolute;
+    z-index: 999;
+    transition: transform .5s ease-in-out;
+    width: 100%;
+    height: 100%;
+}
+
+.dropCentent{
+    background-color: #fff;
+    height: 100%;
+    width: 90%;
+    border-right: .1px solid #aaa;
+}
+
+.rightContent{
+    margin-left: 10%;
+}
+
+.dropleft{
+    top: 0;
+    left: 0;
+    transform: translate(-100%,0);
+}
+
+.dropright{
+    top: 0;
+    right: 0;
+    transform: translate(100%,0);
+}
+
+.droped{
+    transform: translate(0,0);
+    background-color: rgba(100,100,100,.3);
+}
+
+.back{
+    height: 100%;
+    width: 10%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.backright{
+    left: 0;
+    right: unset;
+}
+
+.icon-home,
+.icon-search,
+.icon-bell-l,
+.icon-mail{
+    transition: all .3s ease-in-out;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-content: center;
+    border-radius: 40px;
+}
+
+.iconfont:active{
+    background-color: rgba(100,100,100,.3);
+}
+
+.bottomDrop{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    background-color: rgba(100,100,100,.3);
+}
+
+.bdContent{
+    height: 30%;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+}
+
+.bdContent::before{
+    content: '';
+    display: block;
+    width: 40px;
+    height: 5px;
+    background-color: #eee;
+    border-radius: 2.5px;
+    position: absolute;
+    top: 10px;
+    left:calc(50% - 20px);
+}
+
+.bdBack{
+    height: 70%;
+    width: 100%;
+}
+
+.UserBlock{
+    padding: 20px;
+}
+.follow,
+.follower{
+    font-size: 14px;
+    margin-right: 10px;
+    color: #999;
+}
+.fo{
+    margin-top: 10px;
+}
+
+.MenuList{
+    border-top: 1px solid #eee;
+    padding:5px 0;
+}
+
+.MenuItem{
+    height: 45px;
+    line-height: 45px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.MenuItem:active{
+    background-color: rgba(100,100,100,.1);
+}
+
+.menu-icon{
+    font-size: 20px !important;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.menu-content{
+    letter-spacing: .1px ;
+}
